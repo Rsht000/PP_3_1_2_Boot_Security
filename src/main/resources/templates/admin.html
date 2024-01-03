@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loop</title>
+    <style>
+        table th, table td {
+            padding: 15px;
+        }
+
+        .row {
+            font-style: initial;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Table</h1>
+<table border="5">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Age</th>
+        <th>Update User</th>
+        <th>Delete User</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getId()}"></td>
+        <td th:utext="${user.getUsername()}"></td>
+        <td th:utext="${user.getEmail()}"></td>
+        <td th:utext="${user.getPassword()}"></td>
+        <td><a th:href="@{Update-User(id=${user.id})}">Update</a></td>
+        <td><a th:href="@{delete(id=${user.id})}">Delete</a></td>
+    </tr>
+    <tbody>
+</table>
+<p><a href="/addNewUser"> Create User</a></p>
+<div class="logout-button-wrapper">
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+</body>
+</html>
