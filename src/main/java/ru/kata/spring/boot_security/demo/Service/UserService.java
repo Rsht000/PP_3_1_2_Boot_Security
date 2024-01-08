@@ -46,6 +46,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }

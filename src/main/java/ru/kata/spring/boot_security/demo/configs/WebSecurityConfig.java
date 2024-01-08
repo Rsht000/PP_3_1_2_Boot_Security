@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.kata.spring.boot_security.demo.Service.UserService;
 
 
@@ -24,16 +25,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/admin").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                    .antMatchers("/","login").permitAll()
+                    .antMatchers("/user").hasAnyRole("ADMIN", "USER")
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/login")
+                    .successHandler(successUserHandler)
+                    .loginProcessingUrl("/login")
+                    .usernameParameter("j_login")
+                    .passwordParameter("j_password")
+                    .permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                    .logout()
+                    .permitAll()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login?logout")
+                .and().csrf().disable();
     }
 
     // аутентификация inMemory

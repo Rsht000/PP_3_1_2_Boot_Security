@@ -34,7 +34,9 @@ public class DataBaseLoader implements CommandLineRunner {
         User user = new User("user","user","user");
         user.setRoles(new HashSet<>(List.of(userRole)));
 
+
         this.userRepository.save(admin);
         this.userRepository.save(user);
+
     }
 }
