@@ -1,27 +1,28 @@
 package ru.kata.spring.boot_security.demo.Controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.Models.User;
-import ru.kata.spring.boot_security.demo.Service.UserService;
+import ru.kata.spring.boot_security.demo.Service.UserServiceImpl;
 
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
-    private final UserService userService;
-    public UserController(UserService userService) {
-        this.userService = userService;
+    private final UserServiceImpl userServiceImpl;
+    @Autowired
+    public UserController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
 
-    @GetMapping()
+    @GetMapping("/user")
     public String userForm(Principal principal, Model model) {
-        User user1 = userService.findByUserName(principal.getName());
+        User user1 = userServiceImpl.findByUserName(principal.getName());
         model.addAttribute("login", user1);
         return "/user";
     }
+
 }

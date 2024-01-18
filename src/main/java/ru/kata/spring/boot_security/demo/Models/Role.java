@@ -1,12 +1,15 @@
 package ru.kata.spring.boot_security.demo.Models;
 
-import lombok.Data;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
 
+
 import javax.persistence.*;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Data
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
 
@@ -15,11 +18,63 @@ public class Role implements GrantedAuthority {
     private Long id;
     private String name;
 
+    @Transient
+    @ManyToMany(mappedBy = "roles")
+    @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
+    private Set<User> users;
+
     public Role(String name) {
         this.name = name;
     }
 
     public Role() {
+    }
+
+    public Role(Long id, String name, Set<User> users) {
+        this.id = id;
+        this.name = name;
+        this.users = users;
+    }
+    public Role( String name, Set<User> users) {
+        this.name = name;
+        this.users = users;
+    }
+
+    public Role(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRole() {
+        return name;
+    }
+
+    public void setRole(String name) {
+        this.name = name;
     }
 
     @Override
@@ -33,27 +88,16 @@ public class Role implements GrantedAuthority {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(getId(), role.id) &&
+                Objects.equals(getRole(), role.name)
+                && Objects.equals(getUsers(), role.users);
     }
-
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Role other = (Role) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(getId(), getRole(), getUsers());
     }
 }
