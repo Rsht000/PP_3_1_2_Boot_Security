@@ -18,26 +18,12 @@ public class Role implements GrantedAuthority {
     private Long id;
     private String name;
 
-    @Transient
-    @ManyToMany(mappedBy = "roles")
-    @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
-    private Set<User> users;
 
     public Role(String name) {
         this.name = name;
     }
 
     public Role() {
-    }
-
-    public Role(Long id, String name, Set<User> users) {
-        this.id = id;
-        this.name = name;
-        this.users = users;
-    }
-    public Role( String name, Set<User> users) {
-        this.name = name;
-        this.users = users;
     }
 
     public Role(Long id, String name) {
@@ -49,16 +35,9 @@ public class Role implements GrantedAuthority {
         return name;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public Long getId() {
@@ -93,11 +72,10 @@ public class Role implements GrantedAuthority {
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
         return Objects.equals(getId(), role.id) &&
-                Objects.equals(getRole(), role.name)
-                && Objects.equals(getUsers(), role.users);
+                Objects.equals(getRole(), role.name);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRole(), getUsers());
+        return Objects.hash(getId(), getRole());
     }
 }

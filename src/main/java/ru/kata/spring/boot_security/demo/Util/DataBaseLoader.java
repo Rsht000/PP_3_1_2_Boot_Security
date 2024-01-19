@@ -23,8 +23,8 @@ public class DataBaseLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        User admin = new User("admin", "admin", "admin");
-        User user = new User("user", "user", "user");
+        User admin = new User("admin", "$2a$12$RNYsXEVvHpkM.gHvKQ797O5xaMDwAdBuoQmpW7QjOoBvZrHxatdK.", "admin@yandex.ru");
+        User user = new User("user", "$2a$12$dAxOaaSNofAX1Bdp7A/SaOy2JTfFmZDAbi01S8zd.YRAXfh0Yx.HC", "user@gmail.com");
         Role adminRole = new Role("ROLE_ADMIN");
         Role userRole = new Role("ROLE_USER");
         this.roleRepository.save(adminRole);
