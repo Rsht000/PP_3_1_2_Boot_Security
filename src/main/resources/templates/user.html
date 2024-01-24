@@ -14,22 +14,15 @@
 </head>
 <body>
 
-
+<!--кнопка Logout-->
 
 <nav class="navbar" style="background-color: #313131">
     <div class="container-fluid">
-        <p class="navbar-brand text-white">
-            <b><span class="align-middle" th:text="${login.email}"></span></b>
-            <span class="align-middle">with roles:</span>
-            <span class="align-middle" th:text="${login.getRoles()}"></span>
-        </p>
         <form th:action="@{/logout}" method="POST">
             <input class="btn text-secondary" type="submit" value="Logout">
         </form>
     </div>
 </nav>
-
-
 
 
 
@@ -73,7 +66,7 @@
                                  aria-labelledby="nav-home-tab">
                                 <table class="table table-striped table-hover">
                                     <div class="card rounded-0">
-                                        <h5 class="card-header">All users</h5>
+                                        <h5 class="card-header"></h5>
 
                                         <!--    верх таблицы-->
 

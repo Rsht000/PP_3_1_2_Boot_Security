@@ -7,6 +7,7 @@ async function newUser() {
 
     async function addNewUser(e) {
         e.preventDefault();
+
         let listOfRole = [];
         for (let i = 0; i < roles_new.length; i++) {
             listOfRole.push("ROLE_" + roles_new[i].value);
@@ -19,8 +20,8 @@ async function newUser() {
             },
             body: JSON.stringify({
                 username: form_new.username.value,
-                // surname: form_new.surname.value,
-                // age: form_new.age.value,
+                surname: form_new.surname.value,
+                age: form_new.age.value,
                 email: form_new.email.value,
                 password: form_new.password.value,
                 roles: listOfRole
@@ -30,7 +31,12 @@ async function newUser() {
         await fetch(url_new, method).then(() => {
             form_new.reset();
             getAdminPage();
+
             $("#tabBtnAllUsers").click();
+
         });
+        form_new.removeEventListener('submit', addNewUser);
     }
+
+
 }

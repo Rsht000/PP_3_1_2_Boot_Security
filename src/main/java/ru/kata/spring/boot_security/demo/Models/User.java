@@ -1,5 +1,9 @@
 package ru.kata.spring.boot_security.demo.Models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +14,10 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
+@AllArgsConstructor
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -17,9 +25,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    private String surname;
+    private int age;
     private String password;
     private String email;
-
 
     public Long getId() {
         return id;
@@ -53,9 +62,6 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public User() {
-    }
-
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
@@ -70,9 +76,26 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
 
+    public User(String username, String surname, int age, String password, String email) {
+        this.username = username;
+        this.surname = surname;
+        this.age = age;
+        this.password = password;
+        this.email = email;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
+    }
+
+    public User(Long id, String username, String surname, int age, String password, String email) {
+        this.id = id;
+        this.username = username;
+        this.surname = surname;
+        this.age = age;
+        this.password = password;
+        this.email = email;
     }
 
     @Override
@@ -132,3 +155,4 @@ public class User implements UserDetails {
                 '}';
     }
 }
+

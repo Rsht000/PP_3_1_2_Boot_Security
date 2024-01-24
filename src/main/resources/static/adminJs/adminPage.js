@@ -20,10 +20,11 @@ function getAllUsers(ListUsers) {
             roles.push(" " + role.role.toString())
         }
         dataHtml += `<tr>
-           <td>${user.id}</td>
+            <td>${user.id}</td>
             <td>${user.username}</td>
+            <td>${user.surname}</td>
+            <td>${user.age}</td>
             <td>${user.email}</td>
-            <td>${user.password}</td>
             <td>${roles}</td>
             <td>
                 <button class="btn btn-primary" data-bs-toggle="modal" 

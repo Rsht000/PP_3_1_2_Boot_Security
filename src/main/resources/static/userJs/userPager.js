@@ -22,11 +22,13 @@ function getInformationAboutUser(user) {
 
     tr.innerHTML=
         `<tr>
-            <td>${user.id}</td>
+             <td>${user.id}</td>
             <td>${user.username}</td>
-            <td>${user.password}</td>
+            <td>${user.surname}</td>
+            <td>${user.age}</td>
             <td>${user.email}</td>
             <td>${roles}</td>
+ 
  
         </tr>`
     document.getElementById(`tbody`).append(tr);

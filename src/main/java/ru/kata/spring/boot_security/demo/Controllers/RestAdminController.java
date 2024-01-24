@@ -11,11 +11,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/admin")
 public class RestAdminController {
+
+
     public final UserServiceImpl userServiceImpl;
 
 
     public RestAdminController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
+
     }
 
     @GetMapping("/getUsers")
@@ -32,7 +35,7 @@ public class RestAdminController {
     @PostMapping("/create")
     public ResponseEntity<HttpStatus> addUser(@RequestBody User user) {
         userServiceImpl.addNewUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return null;
     }
 
     @PutMapping(value = "/getUser/{id}")
