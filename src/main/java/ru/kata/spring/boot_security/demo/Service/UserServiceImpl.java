@@ -11,8 +11,8 @@ import ru.kata.spring.boot_security.demo.Repository.UserRepository;
 import java.util.List;
 
 @Service
-@Transactional
-public class UserServiceImpl implements UserService {
+@Transactional(readOnly = true)
+public class UserServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
-
+    @Transactional
     public void addNewUser(User user) {
         userRepository.saveAndFlush(user);
     }
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-
+    @Transactional
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }

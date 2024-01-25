@@ -1,9 +1,5 @@
 package ru.kata.spring.boot_security.demo.Models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,10 +10,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
-@AllArgsConstructor
-@Setter
-@Getter
-@NoArgsConstructor
+
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -29,6 +22,25 @@ public class User implements UserDetails {
     private int age;
     private String password;
     private String email;
+
+    public User() {
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public Long getId() {
         return id;
